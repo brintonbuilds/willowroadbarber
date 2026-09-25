@@ -59,7 +59,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@500;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=Permanent+Marker&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="willow-v2.css?v=20260925" />
+  <link rel="stylesheet" href="willow-v2.css?v=20260925b" />
 
   <!-- ── Structured Data: LocalBusiness / BarberShop ─────────── -->
   <script type="application/ld+json">
@@ -288,15 +288,17 @@
   <div class="hero-content">
     <div class="hero-inner">
       <div class="hero-text">
-        <p class="hero-eyebrow">Guelph's neighbourhood barber &nbsp;·&nbsp; Est. 1960s</p>
+        <p class="hero-open" id="heroOpen" hidden>
+          <span class="hero-open-dot" aria-hidden="true"></span>
+          <span class="hero-open-text"></span>
+        </p>
+        <p class="hero-eyebrow">Guelph's neighbourhood barber<span class="hero-eyebrow-est">&nbsp;·&nbsp; Est. 1960s</span></p>
         <h1 class="hero-heading" id="hero-heading">
-          <span class="hero-line hero-line--1">Walk in</span>
-          <span class="hero-line hero-line--2">Leave <span class="accent">sharp</span></span>
+          <span class="hero-line hero-line--1">Walk in.</span>
+          <span class="hero-line hero-line--2">Leave <span class="accent">sharp.</span></span>
         </h1>
         <p class="hero-quote">&#8220;This is a barbershop, not a salon.&#8221;</p>
-        <p class="hero-sub">
-          Walk in any time — 59 Willow Road, Guelph.
-        </p>
+        <p class="hero-sub">Walk in any time &mdash; 59 Willow Road, Guelph.</p>
         <div class="hero-actions">
           <a href="tel:+15198215231" class="btn-primary">
             <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1068,45 +1070,68 @@
     var prefersReducedMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ── Visit: live open/closed status (shop time, America/Toronto) ──
+    // ── Live open/closed status (shop time, America/Toronto) ──
+    // Drives the hero "Open now" badge and the Visit section badge + hours table.
+    // Keep `hours` in sync with the hours table in the Visit section.
     (function () {
-      var el = document.getElementById('visitStatus');
-      if (!el) return;
       // day index (0 = Sun) → [open hour, close hour]
       var hours = { 2: [8, 18], 3: [8, 18], 4: [8, 18], 5: [8, 18], 6: [8, 15] };
       var names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       var fmt = function (h) { return (h > 12 ? h - 12 : h) + (h >= 12 ? ' pm' : ' am'); };
-      var parts;
-      try {
-        parts = new Intl.DateTimeFormat('en-US', {
-          timeZone: 'America/Toronto', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false
-        }).formatToParts(new Date());
-      } catch (e) { return; }
-      var get = function (t) { return (parts.find(function (p) { return p.type === t; }) || {}).value; };
-      var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
-      var now = (parseInt(get('hour'), 10) % 24) + parseInt(get('minute'), 10) / 60;
-      if (day < 0) return;
 
-      var today = hours[day];
-      var open = today && now >= today[0] && now < today[1];
-      var text;
-      if (open) {
-        text = 'Open now · until ' + fmt(today[1]);
-      } else if (today && now < today[0]) {
-        text = 'Closed · opens today at ' + fmt(today[0]);
-      } else {
-        for (var i = 1; i <= 7; i++) {
-          var d = (day + i) % 7;
-          if (hours[d]) { text = 'Closed · opens ' + (i === 1 ? 'tomorrow' : names[d]) + ' at ' + fmt(hours[d][0]); break; }
+      function status() {
+        var parts;
+        try {
+          parts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Toronto', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false
+          }).formatToParts(new Date());
+        } catch (e) { return null; }
+        var get = function (t) { return (parts.find(function (p) { return p.type === t; }) || {}).value; };
+        var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+        if (day < 0) return null;
+        var now = (parseInt(get('hour'), 10) % 24) + parseInt(get('minute'), 10) / 60;
+        var today = hours[day];
+        var open = !!(today && now >= today[0] && now < today[1]);
+        var text;
+        if (open) {
+          text = 'Open now · until ' + fmt(today[1]);
+        } else if (today && now < today[0]) {
+          text = 'Closed · opens today at ' + fmt(today[0]);
+        } else {
+          for (var i = 1; i <= 7; i++) {
+            var d = (day + i) % 7;
+            if (hours[d]) { text = 'Closed · opens ' + (i === 1 ? 'tomorrow' : names[d]) + ' at ' + fmt(hours[d][0]); break; }
+          }
         }
+        return { day: day, open: open, text: text };
       }
-      el.querySelector('.visit-status-text').textContent = text;
-      el.classList.add(open ? 'is-open' : 'is-closed');
-      el.hidden = false;
 
-      document.querySelectorAll('.visit-hours-table tr[data-days]').forEach(function (row) {
-        if (row.getAttribute('data-days').split(',').indexOf(String(day)) > -1) row.classList.add('is-today');
-      });
+      function render() {
+        var st = status();
+        if (!st) return;
+
+        // Hero: only shown while the shop is open
+        var hero = document.getElementById('heroOpen');
+        if (hero) {
+          hero.querySelector('.hero-open-text').textContent = st.open ? st.text : '';
+          hero.hidden = !st.open;
+        }
+
+        // Visit section: always shown, open or closed
+        var visit = document.getElementById('visitStatus');
+        if (visit) {
+          visit.querySelector('.visit-status-text').textContent = st.text;
+          visit.classList.toggle('is-open', st.open);
+          visit.classList.toggle('is-closed', !st.open);
+          visit.hidden = false;
+        }
+        document.querySelectorAll('.visit-hours-table tr[data-days]').forEach(function (row) {
+          row.classList.toggle('is-today', row.getAttribute('data-days').split(',').indexOf(String(st.day)) > -1);
+        });
+      }
+
+      render();
+      setInterval(render, 60000);
     })();
 
     // ── Hero background ken-burns ─────────────────────────────
