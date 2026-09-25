@@ -3,29 +3,61 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://willowroadbarber.ca/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://willowroadbarber.ca/images/willow-road-barbershop-barber-cutting-hair-guelph.webp</image:loc>
-      <image:caption>Barber cutting a customer's hair at Willow Road Barber Shop in Guelph, Ontario</image:caption>
-      <image:title>Willow Road Barber Shop — Guelph</image:title>
+      <image:loc>https://willowroadbarber.ca/images/willow-road-barber-shop-guelph-storefront-og.jpg</image:loc>
+      <image:caption>Willow Road Barber Shop storefront at 59 Willow Road, Guelph, Ontario</image:caption>
+      <image:title>Willow Road Barber Shop — Guelph barber</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/willow-road-barber-guelph-hero-storefront-2400.webp</image:loc>
+      <image:caption>Storefront window of Willow Road Barber Shop in Guelph with barber poles and walk-ins welcome sign</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://willowroadbarber.ca/images/willow-road-barbershop-interior-guelph.webp</image:loc>
       <image:caption>Interior of Willow Road Barber Shop in Guelph</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://willowroadbarber.ca/images/willow-road-barbershop-storefront-window-sunset.webp</image:loc>
-      <image:caption>Willow Road Barber Shop storefront at sunset, 59 Willow Road, Guelph</image:caption>
+      <image:loc>https://willowroadbarber.ca/images/willow-road-barbershop-barber-cutting-hair-guelph.webp</image:loc>
+      <image:caption>Barber cutting a customer's hair at Willow Road Barber Shop in Guelph, Ontario</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://willowroadbarber.ca/images/mens-modern-mullet-willow-road-barbershop.webp</image:loc>
-      <image:caption>Modern mullet haircut at Willow Road Barber Shop, Guelph</image:caption>
+      <image:loc>https://willowroadbarber.ca/images/mens-disconnected-undercut-slick-back-hair-design-guelph.webp</image:loc>
+      <image:caption>Men's disconnected undercut with slick-back and hair design, Willow Road Barber Shop, Guelph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/mens-mid-skin-fade-textured-crop-beard-guelph.webp</image:loc>
+      <image:caption>Men's mid skin fade with textured crop and beard, Willow Road Barber Shop, Guelph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/teen-low-taper-fade-pompadour-guelph.webp</image:loc>
+      <image:caption>Teen low taper fade with pompadour, Willow Road Barber Shop, Guelph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/mens-low-fade-textured-quiff-beard-guelph.webp</image:loc>
+      <image:caption>Men's low fade with textured quiff and beard, Willow Road Barber Shop, Guelph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/boys-high-fade-comb-over-guelph.webp</image:loc>
+      <image:caption>Boys' high fade comb-over, Willow Road Barber Shop, Guelph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/mens-mid-fade-textured-crop-beard-line-up-guelph.webp</image:loc>
+      <image:caption>Men's mid fade with textured crop and beard line-up, Willow Road Barber Shop, Guelph</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://willowroadbarber.ca/images/mens-skin-fade-willow-road-barbershop-guelph.webp</image:loc>
       <image:caption>Men's skin fade haircut at Willow Road Barber Shop, Guelph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/kids-low-taper-fade-guelph.webp</image:loc>
+      <image:caption>Kids' low taper fade haircut at Willow Road Barber Shop, Guelph</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://willowroadbarber.ca/images/mens-modern-mullet-willow-road-barbershop.webp</image:loc>
+      <image:caption>Modern mullet haircut at Willow Road Barber Shop, Guelph</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://willowroadbarber.ca/images/kids-textured-mullet-hair-design-guelph.webp</image:loc>
