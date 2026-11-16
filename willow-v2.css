@@ -1727,13 +1727,6 @@ a { color: inherit; text-decoration: none; }
   text-align: left;
 }
 
-/* ── BB Credit — override standalone styles when inline ── */
-.site-footer .bb-credit {
-  margin-top: 22px;
-  padding: 0;
-  border-top: none;
-}
-
 /* ── Responsive ─────────────────────────── */
 @media (max-width: 900px) {
   .footer-columns {
@@ -2111,68 +2104,6 @@ a { color: inherit; text-decoration: none; }
   .gallery-more-icon { transition: none; }
 }
 
-/* ============================================
-   BRINTON BUILDS CREDIT  — reusable component
-   Copy this block + the HTML markup to any
-   Brinton Builds site to add the credit.
-   ============================================ */
-.bb-credit {
-  margin-top: 8px;
-  padding: 14px var(--pad-x, clamp(24px,5vw,80px)) 22px;
-  border-top: 1px solid var(--border, rgba(238,232,223,0.055));
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.bb-credit-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: rgba(238, 232, 223, 0.24);
-  text-decoration: none;
-  transition: color 0.32s ease;
-}
-
-.bb-credit-link:hover {
-  color: #c86828;
-}
-
-.bb-credit-link:focus-visible {
-  outline: 1px solid rgba(200, 104, 40, 0.48);
-  outline-offset: 5px;
-  color: #c86828;
-}
-
-.bb-credit-mark {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.bb-credit-mark svg {
-  display: block;
-  width: auto;
-  height: 13px;
-}
-
-.bb-credit-link:hover .bb-credit-mark {
-  transform: translateY(-1px);
-}
-
-.bb-credit-text {
-  font-family: var(--font-sans);
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-@media (max-width: 480px) {
-  .bb-credit { padding-bottom: 18px; }
-}
 
 /* ============================================
    TESTIMONIALS — Premium Social Proof
@@ -3421,8 +3352,7 @@ body {
 }
 
 /* Lift all content above grain */
-.site-footer > .container,
-.site-footer > .bb-credit {
+.site-footer > .container {
   position: relative;
   z-index: 1;
 }
@@ -3495,14 +3425,6 @@ body {
   padding-top: clamp(20px, 2.5vw, 30px);
   border-top: 1px solid rgba(238,232,223,0.06);
   padding-bottom: 0;
-}
-
-/* BB credit — subtler, sits cleanly at the base */
-.site-footer .bb-credit {
-  margin-top: 0;
-  padding-top: 16px;
-  padding-bottom: clamp(20px, 3vw, 28px);
-  border-top: none;
 }
 
 /* Tablet: info collapses to 2 columns */
@@ -4112,11 +4034,6 @@ body {
 }
 .footer-top-link:hover { color: var(--fg); }
 
-.site-footer .bb-credit-text {
-  font-size: 12px;
-  letter-spacing: 0.14em;
-}
-
 @media (max-width: 980px) {
   .site-footer .footer-main { grid-template-columns: 1fr; }
 }
@@ -4240,4 +4157,29 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-open-dot { animation: none; }
+}
+
+/* ===== Brinton Builds credit: monochrome at rest, B mark turns red on hover/focus ===== */
+.bb-credit-row { display: flex; padding-block: 28px 32px; }
+.bb-credit {
+  --bb-ink: #ffffff;   /* wordmark colour on dark footers */
+  --bb-red: #e23d26;   /* brand red, shown on hover */
+  display: inline-block;
+  width: 112px;
+  line-height: 0;
+  opacity: .5;
+  border-radius: 2px;
+  transition: opacity .3s ease;
+}
+.bb-credit--on-light { --bb-ink: #1a1a1a; }
+.bb-credit svg { display: block; width: 100%; height: auto; }
+.bb-credit__word { fill: var(--bb-ink); }
+.bb-credit__mark { fill: var(--bb-ink); transition: fill .3s ease; }
+.bb-credit:hover,
+.bb-credit:focus-visible { opacity: 1; }
+.bb-credit:hover .bb-credit__mark,
+.bb-credit:focus-visible .bb-credit__mark { fill: var(--bb-red); }
+.bb-credit:focus-visible { outline: 2px solid var(--bb-ink); outline-offset: 6px; }
+@media (prefers-reduced-motion: reduce) {
+  .bb-credit, .bb-credit__mark { transition: none; }
 }
